@@ -8,7 +8,7 @@ import packages.functions
 #create dag and tasks
 
 @dag(schedule_interval=None, start_date=datetime(2025, 9, 28), catchup=False)
-def etl_dag():
+def weather_etl_dag():
     @task()
     def extract_task():
         return packages.functions.extract_weather_data()
@@ -22,9 +22,9 @@ def etl_dag():
         return packages.functions.load_weather_data(transformed_data)
 
     #define DAG flow
-    
+
     extracted_data = extract_task()
     transformed_data = transform_task(extracted_data)
     load_task(transformed_data)
 
-etl_dag()
+weather_etl_dag()
