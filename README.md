@@ -11,8 +11,10 @@ This project implements an ETL pipeline to extract, transform, and load daily we
 - Setup Instructions
 - Running Airflow
 - DAG Details
+- Why This Data Source?
+- Data Transformations Applied
 
-
+  
 ---
 
 ## Project Overview
@@ -54,7 +56,8 @@ cd weather_data
 
    - Execute all the cells in the test.ipynb
   
-  3. **Orchestrating the ETL script with airflow**:
+  
+  ## Running airflow:
       - Start up the docker engine
           
       - Navigate to the AIRFLOW_PROJECT, then execute the command below to spin up the airflow containers
@@ -62,7 +65,7 @@ cd weather_data
           
       -   Navigate to the airflow web servere UI, then create connection id (e.g. weather_data_id) for the destination database of the extracted data
           
-4. **DAG details**:
+## DAG details:
 
      DAG ID: weather_etl_dag
 
@@ -75,4 +78,33 @@ cd weather_data
        load_task: Insert/upsert the data into PostgreSQL.
 
      taskflow: extract_task -> transform_task -> load_task
+
+
+## Why This Data Source?
+The Open-Meteo API data source was used because it allows the business to access up-to-date and accurate weather data at no cost. This data can support decisions such as inventory planning, logistics, and demand forecasting in regions where weather impacts operations, helping reduce costs and improve efficiency.
+
+## Data Transformations Applied
+- Column formatting:
+
+Converted time to date format.
+
+Ensured numeric columns (temperature_2m_max, temperature_2m_min, precipitation_sum) are floats.
+
+Added a city column.
+
+- Feature engineering:
+
+Added day_of_week and month columns from time.
+
+Calculated temperature_range (max - min).
+
+Categorized rainfall into No rain, Light, Moderate, Heavy.
+
+Calculated a 7-day rolling average of max temperature (temp7d_avg).
+
+Missing values handling:
+
+Filled numeric missing values with 0.
+
+Filled categorical/missing string values with "unknown".
 
