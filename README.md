@@ -52,6 +52,7 @@ cd weather_data
    - Activate virtual environment
      
    - Execute the command below to pip install the needed libraries
+
      pip install -r requirements.txt
 
    - Execute all the cells in the test.ipynb
