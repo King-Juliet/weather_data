@@ -1,0 +1,8 @@
+numpy
+SQLAlchemy
+python-dotenv
+requests
+pandas
+retry-requests
+SQLAlchemy
+psycopg2-binary
